@@ -72,12 +72,35 @@ export class AgentPublisher implements INodeType {
                     returnFullResponse: false,
                 });
 
-                this.logger.debug(`Registered Agent: ${JSON.stringify(registerAgentResponse)}`);
+                const webHookId = workflowResponse.nodes.filter((node: any) => node.type === 'n8n-nodes-base.webhook')[0].webhookId;
+                if (webHookId) {
+                    const webhookUrl = `${n8nApiUrl}webhook/${webHookId}`;
+
+                    await this.helpers.httpRequest({
+                        method: 'POST',
+                        url: `${apiUrl}/agents/update-n8n-webhook`,
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                            'X-API-KEY': credentials.apiKey as string
+                        },
+                        body: JSON.stringify({
+                            "agentId": registerAgentResponse.id,
+                            "n8nHttpWebhookUrl": webhookUrl,
+                        }),
+                        json: true,
+                        timeout: 10000,
+                        returnFullResponse: false,
+                    });
+
+                    this.logger.error(`Updated Webhook for Agent ID: ${registerAgentResponse.id}`);
+
+                }
 
                 returnData.push({
                     json: {
                         success: true,
-                        agentId: registerAgentResponse.agentId,
+                        agentId: registerAgentResponse.id,
                         agentDID: registerAgentResponse.didIdentifier,
                         message: 'Agent published successfully',
                     },
@@ -102,7 +125,7 @@ export class AgentPublisher implements INodeType {
                 }
                 throw error;
             }
-        }  
+        }
 
         this.logger.debug(`Returning data: ${JSON.stringify(returnData)}`);
 
