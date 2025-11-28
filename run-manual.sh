@@ -21,10 +21,10 @@ echo "[1/6] Installing n8n globally..."
 npm install -g n8n
 
 echo "[2/6] Installing dependencies..."
-npm install
+pnpm install
 
 echo "[3/6] Building n8n-nodes-zyndai..."
-npm run build
+pnpm run build
 
 echo "[4/6] Linking package globally..."
 npm link

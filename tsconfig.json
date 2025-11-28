@@ -1,38 +1,38 @@
 {
-	"compilerOptions": {
-		"strict": true,
-		"module": "Node16",
-		"moduleResolution": "Node16",
-		"target": "ES2022",
-		"lib": [
-			"es2019",
-			"es2020",
-			"es2022.error"
-		],
-		"removeComments": true,
-		"useUnknownInCatchVariables": false,
-		"forceConsistentCasingInFileNames": true,
-		"noImplicitAny": true,
-		"noImplicitReturns": true,
-		"noUnusedLocals": true,
-		"strictNullChecks": true,
-		"preserveConstEnums": true,
-		"esModuleInterop": true,
-		"resolveJsonModule": true,
-		"incremental": true,
-		"declaration": true,
-		"sourceMap": true,
-		"skipLibCheck": true,
-		"outDir": "./dist/",
-		"types": [
-			"node"
-		]
-	},
-	"include": [
-		"credentials/**/*",
-		"nodes/**/*",
-		"nodes/**/*.json",
-		"package.json",
-		"AgentPublisher.node.ts"
-	]
+    "compilerOptions": {
+        "strict": true,
+        "module": "Node16",
+        "moduleResolution": "Node16",
+        "target": "ES2022",
+        "lib": [
+            "es2019",
+            "es2020",
+            "es2022.error"
+        ],
+        "removeComments": true,
+        "useUnknownInCatchVariables": false,
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "strictNullChecks": true,
+        "preserveConstEnums": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "incremental": true,
+        "declaration": true,
+        "sourceMap": true,
+        "skipLibCheck": true,
+        "outDir": "./dist/",
+        "types": [
+            "node"
+        ]
+    },
+    "include": [
+        "credentials/**/*",
+        "nodes/**/*",
+        "nodes/**/*.json",
+        "package.json",
+        "AgentPublisher.node.ts"
+    ]
 }
