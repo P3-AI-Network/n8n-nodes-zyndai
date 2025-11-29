@@ -34,5 +34,5 @@
         "nodes/**/*.json",
         "package.json",
         "AgentPublisher.node.ts"
-    ]
+, "X402RespondToWebhook.node.ts"    ]
 }

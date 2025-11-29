@@ -19,8 +19,8 @@ import { processPriceToAtomicAmount } from "x402/shared";
 
 export class X402Webhook implements INodeType {
     description: INodeTypeDescription = {
-        displayName: 'X402 Webhook',
-        name: 'x402Webhook',
+        displayName: 'Zynd X402 Webhook',
+        name: 'zyndX402Webhook',
         icon: { light: 'file:../../icons/zynd.svg', dark: 'file:../../icons/zynd.svg' },
         group: ['trigger'],
         version: 1,

@@ -23,7 +23,8 @@
 			"dist/nodes/Zynd/SearchAgent.node.js",
 			"dist/nodes/Zynd/AgentPublisher.node.js",
 			"dist/nodes/Zynd/X402Webhook.node.js",
-			"dist/nodes/Zynd/X402RespondToWebhook.node.js"
+			"dist/nodes/Zynd/X402RespondToWebhook.node.js",
+			"dist/nodes/Zynd/X402HttpRequest.node.js"
 		]
 	},
 	"devDependencies": {

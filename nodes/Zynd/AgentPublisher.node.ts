@@ -96,7 +96,6 @@ export class AgentPublisher implements INodeType {
                 try {
                     const web3creds = await this.getCredentials('web3wallet');
                     const walletSeed = web3creds?.wallet_seed as string;
-                    this.logger.error(`Wallet crds: ${JSON.stringify(web3creds)}`);
 
                     if (registerAgentResponse.seed !== walletSeed) throw new Error('Wallet seed does not match the registered agent seed.');
                 } catch {
