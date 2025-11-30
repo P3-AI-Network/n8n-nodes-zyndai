@@ -42,7 +42,7 @@ export class AgentPublisher implements INodeType {
         const workflowId = this.getWorkflow();
         let webHookId: string;
         let webhookType: "NORMAL" | "X402" = "NORMAL";
-        let webhookPath = "";
+        let webhookPath = "pay";
 
 
         // Process each input item
@@ -62,14 +62,11 @@ export class AgentPublisher implements INodeType {
                     timeout: 10000,
                     returnFullResponse: false,
                 });
-
-                this.logger.debug(`==== ${JSON.stringify(workflowResponse)}`)
-
+                
                 try {
                     webHookId = workflowResponse.nodes.filter((node: any) => {
-                        if (node.type === 'n8n-nodes-base.webhook' || node.type === 'CUSTOM.x402Webhook') {
+                         if (node.type === 'CUSTOM.zyndX402Webhook') {
                             webhookType = "X402";
-                            webhookPath = node.parameters.path;
                             return true;
                         }
                         return false
@@ -103,8 +100,6 @@ export class AgentPublisher implements INodeType {
                     const hdKey = HDKey.fromMasterSeed(seed);
                     const account = hdKeyToAccount(hdKey);
 
-                    this.logger.error(`Derived Wallet Address: ${n8nApiUrl}api/v1/credentials ${credentials.n8nApiKey}`);
-
                     await this.helpers.httpRequest({
                         method: 'POST',
                         url: `${n8nApiUrl}api/v1/credentials`,
@@ -114,7 +109,7 @@ export class AgentPublisher implements INodeType {
                             'X-N8N-API-KEY': credentials.n8nApiKey as string
                         },
                         body: JSON.stringify({
-                            "name": "Wallet Credential",
+                            "name": `Wallet Credential ${workflowId.name}`,
                             "type": "web3wallet",
                             "data": {
                                 "wallet_seed": registerAgentResponse.seed,
@@ -131,16 +126,14 @@ export class AgentPublisher implements INodeType {
                 // Extract webhook ID from workflow response and update agent with webhook URL on zynd
 
                 if (webHookId) {
+                    
                     let webhookUrl: string;
-
-                    if (webhookType === "NORMAL") {
+                     if (webhookType === "NORMAL") {
                         webhookUrl = `${n8nApiUrl}webhook/${webHookId}`;
                     } else {
                         webhookUrl = `${n8nApiUrl}webhook/${webHookId}/${webhookPath}`;
                     }
-
-                    this.logger.error(`======= ${webhookUrl}`)
-
+                    
                     await this.helpers.httpRequest({
                         method: 'POST',
                         url: `${apiUrl}/agents/update-n8n-webhook`,
@@ -157,8 +150,6 @@ export class AgentPublisher implements INodeType {
                         timeout: 10000,
                         returnFullResponse: false,
                     });
-
-                    this.logger.error(`Updated Webhook for Agent ID: ${registerAgentResponse.id}`);
 
                 }
 
@@ -191,8 +182,6 @@ export class AgentPublisher implements INodeType {
                 throw error;
             }
         }
-
-        this.logger.debug(`Returning data: ${JSON.stringify(returnData)}`);
 
         return [returnData];
     }

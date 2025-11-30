@@ -36,7 +36,7 @@ export class X402Webhook implements INodeType {
                 name: 'default',
                 httpMethod: '={{$parameter["httpMethod"]}}',
                 responseMode: '={{$parameter["responseMode"]}}',
-                path: '={{$parameter["path"]}}',
+                path: 'pay',
             },
         ],
         properties: [
@@ -61,14 +61,6 @@ export class X402Webhook implements INodeType {
                 default: 'POST',
                 required: true,
                 description: 'The HTTP method to listen for',
-            },
-            {
-                displayName: 'Path',
-                name: 'path',
-                type: 'string',
-                default: 'webhook',
-                required: true,
-                description: 'The path to listen on (e.g., "webhook" for /webhook)',
             },
             {
                 displayName: 'Response Mode',
@@ -154,7 +146,7 @@ export class X402Webhook implements INodeType {
                 displayName: 'Facilitator URL',
                 name: 'facilitatorUrl',
                 type: 'string',
-                default: '',
+                default: 'https://x402.org/facilitator',
                 required: true,
                 placeholder: 'https://your-facilitator-url.com',
                 description: 'The x402 facilitator URL for payment verification',

@@ -334,7 +334,7 @@ export class X402RespondToWebhook implements INodeType {
 			FORM_TRIGGER_NODE_TYPE,
 			CHAT_TRIGGER_NODE_TYPE,
 			WAIT_NODE_TYPE,
-            "CUSTOM.x402Webhook"
+            "CUSTOM.zyndX402Webhook"
 		];
 
 		let response: IN8nHttpFullResponse;

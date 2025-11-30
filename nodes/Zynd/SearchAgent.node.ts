@@ -135,7 +135,6 @@ export class SearchAgent implements INodeType {
 					timeout: 10000,
 					returnFullResponse: false,
 				});
-				this.logger.error(`Searching agents with query: ${JSON.stringify(response)}`);
 
 				// Extract only the data we need (avoid circular references)
 				const agentsList = Array.isArray(response?.data) ? response.data : [];
@@ -174,6 +173,7 @@ export class SearchAgent implements INodeType {
 							didIdentifier: agent.didIdentifier,
 							description: agent.description || '',
 							capabilities: agent.capabilities || [],
+							n8nHttpWebhookUrl: agent.n8nHttpWebhookUrl || ''
 						})),
 						count: agentsList.length,
 						timestamp: new Date().toISOString(),
@@ -219,7 +219,7 @@ export class SearchAgent implements INodeType {
 							error: error.message || 'Unknown error occurred',
 							query: {
 								keyword: this.getNodeParameter('agentKeyword', i, ''),
-								capabilities: this.getNodeParameter('capabilities', i, []),
+								capabilities: this.getNodeParameter('capabilities', i, [])
 							},
 							success: false,
 						},
